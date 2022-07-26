@@ -48,5 +48,5 @@ runs:
         VTEX_TOOLBELT_BRANCH: inputs.branch
 
 branding:
-  icon: file-text
-  color: white
+  icon: activity
+  color: yellow
