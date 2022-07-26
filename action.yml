@@ -34,6 +34,7 @@ runs:
         echo "Set var IN_CYPRESS=true"
         echo "Login using bash"
         echo "Fail if anything goes wrong"
+      shell: bash
     - run: |
         bash $GITHUB_ACTION_PATH/entrypoint.sh
       id: login
