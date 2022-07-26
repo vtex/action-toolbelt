@@ -62,7 +62,8 @@ runs:
         cp bin/run bin/vtex-e2e
         ln -s $(pwd)/bin/vtex-e2e /usr/local/bin/
         vtex-e2e whoami || echo "First call to warm it up"
-        vtex-e2e whoami
+        VERSION=$(vtex-e2e version)
+        echo ::notice title=VTEX Toolbelt version::$VERSION
       working-directory: toolbelt
       shell: bash
 
