@@ -1,0 +1,52 @@
+name: Toolbelt
+description: Deploy patched VTEX toolbelt, cache for faster deployment, and do login.
+author: VTEX
+
+inputs:
+  account:
+    description: 'Account to use on login'
+    required: true
+  appKey:
+    description: 'VTEX App Key to login'
+    required: true
+  appToken:
+    description: 'VTEX App Token to login'
+    required: true
+  workspace:
+    description: 'Workspace to start after login, default master'
+    required: false
+    default: master
+  git:
+    description: 'Source repository to clone (org/repo)'
+    required: false
+    default: vtex/toolbelt
+  branch:
+    description: 'Wich branch to pick on the git'
+    required: false
+    default: master
+
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        echo "Checkout Git on the right branch if not in cache"
+        echo "Install toolbelt"
+        echo "Set var IN_CYPRESS=true"
+        echo "Login using bash"
+        echo "Fail if anything goes wrong"
+    - run: |
+        bash $GITHUB_ACTION_PATH/entrypoint.sh
+      id: login
+      shell: bash
+      env:
+        IN_CYPRESS: 'true'
+        VTEX_ACCOUNT: inputs.account
+        VTEX_APP_KEY: inputs.appKey
+        VTEX_APP_TOKEN: inputs.appToken
+        VTEX_WORKSPACE: inputs.workspace
+        VTEX_TOOLBELT_GIT: inputs.git
+        VTEX_TOOLBELT_BRANCH: inputs.branch
+
+branding:
+  icon: file-text
+  color: white
