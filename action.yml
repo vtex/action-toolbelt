@@ -21,20 +21,51 @@ inputs:
     required: false
     default: vtex/toolbelt
   branch:
-    description: 'Wich branch to pick on the git'
+    description: 'Which branch to use on git'
     required: false
     default: master
 
 runs:
   using: 'composite'
   steps:
-    - run: |
-        echo "Checkout Git on the right branch if not in cache"
-        echo "Install toolbelt"
-        echo "Set var IN_CYPRESS=true"
-        echo "Login using bash"
-        echo "Fail if anything goes wrong"
+
+    - name: Checkout VTEX Toolbelt
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ inputs.git }}
+        ref: ${{ inputs.branch }}
+        path: .cache/toolbelt
+
+    - name: 'Set up Node.js'
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: yarn
+        cache-dependency-path: .cache/toolbelt/yarn.lock
+      continue-on-error: true
+
+    - name: Cache VTEX Toolbelt
+      id: cache-toolbelt
+      uses: actions/cache@v3
+      with:
+        path: |
+          .cache/toolbelt
+          /usr/local/bin/vtex-e2e
+        key: ${{ runner.os }}-${{ inputs.git }}-${{ inputs.branch }}
+
+
+    - name: Install VTEX Toolbelt
+      if: steps.cache-toolbelt.outputs.cache-hit != 'true'
+      run: |
+        yarn install --frozen-lockfile
+        yarn build
+        cp bin/run bin/vtex-e2e
+        ln -s $(pwd)/bin/vtex-e2e /usr/local/bin/
+        vtex-e2e whoami || echo "First call to warm it up"
+        vtex-e2e whoami
+      working-directory: cache/toolbelt
       shell: bash
+
     - run: |
         bash $GITHUB_ACTION_PATH/entrypoint.sh
       id: login
