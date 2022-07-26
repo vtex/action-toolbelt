@@ -34,14 +34,14 @@ runs:
       with:
         repository: ${{ inputs.git }}
         ref: ${{ inputs.branch }}
-        path: .cache/toolbelt
+        path: toolbelt
 
     - name: 'Set up Node.js'
       uses: actions/setup-node@v3
       with:
         node-version: 16
         cache: yarn
-        cache-dependency-path: .cache/toolbelt/yarn.lock
+        cache-dependency-path: toolbelt/yarn.lock
       continue-on-error: true
 
     - name: Cache VTEX Toolbelt
@@ -49,7 +49,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: |
-          .cache/toolbelt
+          toolbelt
           /usr/local/bin/vtex-e2e
         key: ${{ runner.os }}-${{ inputs.git }}-${{ inputs.branch }}
 
@@ -63,7 +63,7 @@ runs:
         ln -s $(pwd)/bin/vtex-e2e /usr/local/bin/
         vtex-e2e whoami || echo "First call to warm it up"
         vtex-e2e whoami
-      working-directory: cache/toolbelt
+      working-directory: toolbelt
       shell: bash
 
     - run: |
