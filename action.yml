@@ -41,12 +41,12 @@ runs:
       shell: bash
       env:
         IN_CYPRESS: 'true'
-        VTEX_ACCOUNT: inputs.account
-        VTEX_APP_KEY: inputs.appKey
-        VTEX_APP_TOKEN: inputs.appToken
-        VTEX_WORKSPACE: inputs.workspace
-        VTEX_TOOLBELT_GIT: inputs.git
-        VTEX_TOOLBELT_BRANCH: inputs.branch
+        VTEX_ACCOUNT: ${{ inputs.account }}
+        VTEX_APP_KEY: ${{ inputs.appKey }}
+        VTEX_APP_TOKEN: ${{ inputs.appToken }}
+        VTEX_WORKSPACE: ${{ inputs.workspace }}
+        VTEX_TOOLBELT_GIT: ${{ inputs.git }}
+        VTEX_TOOLBELT_BRANCH: ${{ inputs.branch }}
 
 branding:
   icon: activity
