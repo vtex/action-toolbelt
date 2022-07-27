@@ -54,8 +54,8 @@ runs:
       with:
         path: |
           toolbelt
-          /usr/local/bin/vtex-e2e
-        key: ${{ runner.os }}-${{ inputs.git }}-${{ inputs.branch }}
+          /usr/local/bin/${{ inputs.bin }}
+        key: ${{ runner.os }}-${{ inputs.git }}-${{ inputs.branch }}-${{ inputs.bin }}
 
 
     - name: Install VTEX Toolbelt
@@ -63,10 +63,10 @@ runs:
       run: |
         yarn install --frozen-lockfile
         yarn build
-        cp bin/run bin/vtex-e2e
-        ln -s $(pwd)/bin/vtex-e2e /usr/local/bin/
-        vtex-e2e whoami || echo "First call to warm it up"
-        VERSION=$(vtex-e2e version)
+        cp bin/run bin/${{ inputs.bin }}
+        ln -s $(pwd)/bin/${{ inputs.bin }} /usr/local/bin/
+        ${{ inputs.bin }} whoami || echo "First call to warm it up"
+        VERSION=$(${{ inputs.bin }} version)
         echo ::notice title=VTEX Toolbelt version::$VERSION
       working-directory: toolbelt
       shell: bash
