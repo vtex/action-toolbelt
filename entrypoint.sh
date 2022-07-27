@@ -2,7 +2,7 @@
 
 set -eu
 
-PTH="/home/runner/.vtex/session"
+PTH="$HOME/.vtex/session"
 SSN_JSON="session.json"
 WRK_JSON="workspace.json"
 TKN_JSON="tokens.json"
@@ -32,7 +32,7 @@ error() {
   exit $2
 }
 
-rm -rf /home/runner/.vtex && $BIN whoami || error "$BIN not found" 4
+rm -rf $HOME/.vtex && $BIN whoami || error "$BIN not found" 4
 
 print "Fetching VTEX Token" 0
 TKN_CURL=$(curl -s --location \
