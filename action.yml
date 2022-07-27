@@ -16,6 +16,10 @@ inputs:
     description: 'Workspace to start after login, default master'
     required: false
     default: master
+  bin:
+    description: 'Name to call this version of toolbelt'
+    required: false
+    default: vtex-e2e
   git:
     description: 'Source repository to clone (org/repo)'
     required: false
@@ -73,6 +77,7 @@ runs:
       shell: bash
       env:
         IN_CYPRESS: 'true'
+        VTEX_BIN: ${{ inputs.bin }}
         VTEX_ACCOUNT: ${{ inputs.account }}
         VTEX_APP_KEY: ${{ inputs.appKey }}
         VTEX_APP_TOKEN: ${{ inputs.appToken }}
