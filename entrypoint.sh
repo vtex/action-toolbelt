@@ -12,7 +12,7 @@ error() {
   echo -e "$1!" && exit $2
 }
 
-# Build env
+# Variables
 [[ -z $VTEX_ACCOUNT ]] && CHECK=failed
 [[ -z $VTEX_APP_KEY ]] && CHECK=failed
 [[ -z $VTEX_APP_TOKEN ]] && CHECK=failed
@@ -33,7 +33,9 @@ AUT=${VTEX_AUTHENTICATE:-true}
 VERSION="$($BIN --version) [from https://github.com/$GIT/tree/$VBCH]"
 echo ::notice title=Toolbelt version used::$VERSION
 
+# If VTEX_AUTHENTICATE is true
 if [[ $AUT == 'true' ]]; then
+
   # Clean previous login if any
   rm -rf $HOME/.vtex
 
