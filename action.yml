@@ -31,7 +31,7 @@ inputs:
   branch:
     description: 'Which branch to use on git'
     required: false
-    default: master
+    default: toolbelt-action
 
 runs:
   using: 'composite'
