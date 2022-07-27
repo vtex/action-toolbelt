@@ -76,5 +76,5 @@ This action was made based on this [issue discussion](https://github.com/vtex/to
 * [rod-dot-codes](https://github.com/rod-dot-codes) for bridging the question and do a Python version of the script
 * [cantoniazzi](https://github.com/cantoniazzi) for giving the direction to do it using only [cURL](https://curl.se/)
 * [achirus-code](https://github.com/achirus-code) for making a version in [Bash](https://www.gnu.org/software/bash/) that inspired this action
-@thyarles
-*Together we can do more!*
+
+*Together we can do more!* @thyarles
