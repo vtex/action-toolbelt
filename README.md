@@ -77,4 +77,4 @@ This action was made based on this [issue discussion](https://github.com/vtex/to
 * [cantoniazzi](https://github.com/cantoniazzi) for giving the direction to do it using only [cURL](https://curl.se/)
 * [achirus-code](https://github.com/achirus-code) for making a version in [Bash](https://www.gnu.org/software/bash/) that inspired this action
 
-*Together we can do more!* @thyarles
+**Together we can do more!**
