@@ -30,7 +30,7 @@ AUT=${VTEX_AUTHENTICATE:-true}
 [[ -n $CHECK ]] && AUT='false'
 
 # Show toolbelt version used as GitHub notice
-VERSION="$($BIN --version) [from https://github.com/$GIT/tree/$VBCH]"
+VERSION="$($BIN --version) [from https://github.com/$GIT/tree/$BCH]"
 echo ::notice title=Toolbelt version used::$VERSION
 
 # If VTEX_AUTHENTICATE is true
