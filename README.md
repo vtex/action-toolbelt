@@ -42,6 +42,8 @@ jobs:
           account: YOUR_ACCOUNT
           appKey: ${{ secrets.VTEX_TOOLBELT_KEY }}
           appToken: ${{ secrets.VTEX_TOOLBELT_TOKEN }}
+          authenticate: true      # defaults to true, but it'll be false if
+                                  # any of account, appKey or appToken is missing
           workspace: master       # defaults to master if omitted
           bin: vtex-e2e           # defaults to vtex-e2e if omitted 
           git: vtex/toolbelt      # defaults to vtex/toolbelt if omitted
@@ -61,14 +63,12 @@ jobs:
 The output of this workflow will be something like that:
 
 ```text
-Notice: vtex/3.0.0 linux-x64 node-v16.16.0 [from https://github.com/vtex/toolbelt/tree/qe/cypress]
-01:54:21.493 - info: Welcome to VTEX IO  
-01:54:21.494 - info: Log in by running vtex login <account-name>  
-===> Fetching VTEX Token... token fetched.
-===> Creating session.json... session.json created.
-===> Creating workspace.json... workspace.json created.
-===> Creating tokens.json... tokens.json created.
-01:54:23.891 - info: Logged into productusqa as *** at production workspace master  
+::notice title=Toolbelt version used::vtex/3.0.0 linux-x64 node-v16.13.0 [from https://github.com/vtex/toolbelt/tree/]
+===> Fetching VTEX token... done.
+===> Creating session.json... done.
+===> Creating workspace.json... done.
+===> Checking authentication... done.
+14:01:15.234 - info: Logged into account as vtexkey-account-ABC at production workspace master
 ```
 
 ## Credits

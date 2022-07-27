@@ -3,15 +3,19 @@ description: Deploy patched VTEX toolbelt, cache for faster deployment, and do l
 author: VTEX
 
 inputs:
+  authenticate:
+    description: 'Do authentication'
+    required: false
+    default: 'true'
   account:
     description: 'Account to use on login'
-    required: true
+    required: false
   appKey:
     description: 'VTEX App Key to login'
-    required: true
+    required: false
   appToken:
     description: 'VTEX App Token to login'
-    required: true
+    required: false
   workspace:
     description: 'Workspace to start after login, default master'
     required: false
@@ -81,10 +85,11 @@ runs:
         VTEX_ACCOUNT: ${{ inputs.account }}
         VTEX_APP_KEY: ${{ inputs.appKey }}
         VTEX_APP_TOKEN: ${{ inputs.appToken }}
+        VTEX_AUTHENTICATE: ${{ inputs.authenticate }}
         VTEX_WORKSPACE: ${{ inputs.workspace }}
         VTEX_TOOLBELT_GIT: ${{ inputs.git }}
         VTEX_TOOLBELT_BRANCH: ${{ inputs.branch }}
 
 branding:
-  icon: activity
-  color: yellow
+  icon: terminal
+  color: red
