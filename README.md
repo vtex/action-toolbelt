@@ -1,24 +1,26 @@
 # Toolbelt action
 
-This GitHub action deploys the VTEX Toolbelt Cli and do a login on the account requested using KEY/TOKEN. This can be very useful when you want to automate you CI/CD pipelines by cleaning dirty workspaces, for example.
+This GitHub action deploys the tool [VTEX Toolbelt](https://github.com/vtex/toolbelt) and do a login on the account requested using KEY/TOKEN.
+It is useful when you want to automate you CI/CD pipelines --- by cleaning dirty workspaces, for example.
 
 ## Features
 
-* Deploy the VTEX Toolbelt Cli from the repository/branch you pass
-* You can choose the tool call name, i.e. instead of `vtex` it can go by `vtex-e2e`
-* Do a login using app key and app token
-* Cache resources to do the next deploy faster* 
+* Deploy [VTEX Toolbelt](https://github.com/vtex/toolbelt) from the customizable repository/branch
+* Change the tool call name, i.e. instead of `vtex` it can go by `vtex-e2e`
+* Login using `app key` and `app token`
+* Cache resources to do the next deploy faster
 
 ## Usage
 
-To use it, you need to create two secrets on the repository:
-* one for the app key, in our example we called ib `VTEX_TOOLBELT_KEY`
-* other for the token, in our example it is `VTEX_TOOLBELT_TOKEN`.
+First you need need to create two secrets on your repository
 
-Next you need to set your workflow like the example bellow, and that's it:
+1. One for the app key, in our example we called ib `VTEX_TOOLBELT_KEY`
+2. Other for the token, in our example it is `VTEX_TOOLBELT_TOKEN`
+
+Next you need to set up your workflow like the example bellow, and that's it:
 
 ```yml
-# someworkflow.yml
+# toolbelt-workflow.yml
 name: [QE] Deploy Toolbelt
 
 on:
@@ -52,10 +54,12 @@ jobs:
       - name: Logout'
         run: vtex-e2e logout
         # Not needed, the .vtex folder isn't saved on cache
-
 ```
 
+## Output
+
 The output of this workflow will be something like that:
+
 ```text
 Notice: vtex/3.0.0 linux-x64 node-v16.16.0 [from https://github.com/vtex/toolbelt/tree/qe/cypress]
 01:54:21.493 - info: Welcome to VTEX IO  
@@ -67,10 +71,10 @@ Notice: vtex/3.0.0 linux-x64 node-v16.16.0 [from https://github.com/vtex/toolbel
 01:54:23.891 - info: Logged into productusqa as *** at production workspace master  
 ```
 
-# Credits
+## Credits
 This action was made based on this [issue discussion](https://github.com/vtex/toolbelt/issues/1162) inspiration and I'll give my thanks to:
-* [rod-dot-codes](https://github.com/rod-dot-codes) for bridging the question and do a Python version of the script;
-* [cantoniazzi](https://github.com/cantoniazzi) for giving the direction to do it using only [cURL](https://curl.se/);
-* [achirus-code(https://github.com/achirus-code) for making a version in [Bash](https://www.gnu.org/software/bash/) that inspired this action.
+* [rod-dot-codes](https://github.com/rod-dot-codes) for bridging the question and do a Python version of the script
+* [cantoniazzi](https://github.com/cantoniazzi) for giving the direction to do it using only [cURL](https://curl.se/)
+* [achirus-code](https://github.com/achirus-code) for making a version in [Bash](https://www.gnu.org/software/bash/) that inspired this action
 
-Thank you all!
+*Together we can do more!*
