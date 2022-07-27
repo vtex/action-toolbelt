@@ -34,6 +34,15 @@ error() {
 
 rm -rf $HOME/.vtex && $BIN whoami || error "$BIN not found" 4
 
+echo whoami
+whoami
+
+echo pwd
+echo $(pwd)
+
+echo ls -a
+ls -a
+
 print "Fetching VTEX Token" 0
 TKN_CURL=$(curl -s --location \
   --request POST "https://vtexid.vtex.com.br/api/vtexid/apptoken/login?an=$ACC" \
