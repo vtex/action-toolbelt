@@ -4,7 +4,7 @@ author: VTEX
 
 inputs:
   authenticate:
-    description: 'Do authentication'
+    description: 'Do authentication after deploy'
     required: false
     default: 'true'
   account:
@@ -77,10 +77,8 @@ runs:
 
     - run: |
         bash $GITHUB_ACTION_PATH/entrypoint.sh
-      id: login
       shell: bash
       env:
-        IN_CYPRESS: 'true'
         VTEX_BIN: ${{ inputs.bin }}
         VTEX_ACCOUNT: ${{ inputs.account }}
         VTEX_APP_KEY: ${{ inputs.appKey }}

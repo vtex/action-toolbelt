@@ -1,23 +1,16 @@
 # Toolbelt action
 
-This GitHub action deploys the tool [VTEX Toolbelt](https://github.com/vtex/toolbelt) and do a login on the account requested using KEY/TOKEN.
-It is useful when you want to automate you CI/CD pipelines --- by cleaning dirty workspaces, for example.
+This GitHub action deploys the [VTEX Toolbelt](https://github.com/vtex/toolbelt) and can do log in using KEY/TOKEN. It can be useful to automate you CI/CD pipelines or just to schedules day-to-day tasks like cleaning dirty workspaces.
 
 ## Features
 
-* Deploy [VTEX Toolbelt](https://github.com/vtex/toolbelt) from the customizable repository/branch
-* Change the tool call name, i.e. instead of `vtex` it can go by `vtex-e2e`
+* Deploy [VTEX Toolbelt](https://github.com/vtex/toolbelt) (you can customize the repository/branch)
+* Change the tool name, i.e. instead of `vtex` it can go by `vtex-e2e`
 * Login using `app key` and `app token`
 * Cache resources to do the next deploy faster
+* Check every step and stop if anything goes wrong
 
 ## Usage
-
-First you need need to create two secrets on your repository
-
-1. One for the app key, in our example we called ib `VTEX_TOOLBELT_KEY`
-2. Other for the token, in our example it is `VTEX_TOOLBELT_TOKEN`
-
-Next you need to set up your workflow like the example bellow, and that's it.
 
 ### Most basic one, just deploy the VTEX Toolbelt
 
@@ -42,7 +35,14 @@ jobs:
         uses: vtex/action-toolbelt@v2
 ```          
 
-### More advanced, deploy from specific branch and do login
+### More advanced, deploy from specific branch and do log in
+
+If you want to log in, please, add two secrets on your repository secrets:
+
+1. One for the app key, in our example it is `VTEX_TOOLBELT_KEY`
+2. Other for the token, in our example it is `VTEX_TOOLBELT_TOKEN`
+
+Next you need to set up your workflow like the example bellow, and that's it.
 
 ```yml
 # toolbelt-workflow.yml
