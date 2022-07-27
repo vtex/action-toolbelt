@@ -1,4 +1,4 @@
-name: Toolbelt
+name: VTEX Toolbelt Action
 description: Deploy patched VTEX toolbelt, cache for faster deployment, and do login.
 author: VTEX
 
