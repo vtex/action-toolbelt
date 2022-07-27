@@ -32,7 +32,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Deploy toolbelt
-        uses: vtex/action-toolbelt@v2
+        uses: vtex/action-toolbelt@v3
 ```          
 
 ### More advanced, deploy from specific branch and do log in
@@ -62,7 +62,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Deploy toolbelt and login
-        uses: vtex/action-toolbelt@v2
+        uses: vtex/action-toolbelt@v3
         with:
           account: YOUR_ACCOUNT
           appKey: ${{ secrets.VTEX_TOOLBELT_KEY }}
