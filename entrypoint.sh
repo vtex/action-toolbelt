@@ -37,6 +37,7 @@ TKN_CURL=$(curl -s --location \
   print "token fetched"
 
 print "Creating $SSN_JSON" 0
+  mkdir -p $PTH
   RPS=$(jq ".account = \"$ACC\"" <<<"$TKN_CURL")
   jq ".login = \"$KEY\"" <<<"$RPS" >"$PTH/$SSN_JSON"
   RPS_TKN=$(printf '%s\n' "$RPS" | jq -r .RPS_TKN)
