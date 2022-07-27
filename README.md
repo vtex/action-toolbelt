@@ -17,7 +17,9 @@ First you need need to create two secrets on your repository
 1. One for the app key, in our example we called ib `VTEX_TOOLBELT_KEY`
 2. Other for the token, in our example it is `VTEX_TOOLBELT_TOKEN`
 
-Next you need to set up your workflow like the example bellow, and that's it:
+Next you need to set up your workflow like the example bellow, and that's it.
+
+### Most basic one, just deploy the VTEX Toolbelt
 
 ```yml
 # toolbelt-workflow.yml
@@ -34,10 +36,33 @@ jobs:
   deploy:
     name: Toolbelt deploy and login
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 2
+    steps:
+      - name: Deploy toolbelt
+        uses: vtex/action-toolbelt@v2
+```          
+
+### More advanced, deploy from specific branch and do login
+
+```yml
+# toolbelt-workflow.yml
+name: [QE] Deploy Toolbelt
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Toolbelt deploy and login
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: Deploy toolbelt and login
-        uses: vtex/action-toolbelt@v1
+        uses: vtex/action-toolbelt@v2
         with:
           account: YOUR_ACCOUNT
           appKey: ${{ secrets.VTEX_TOOLBELT_KEY }}
