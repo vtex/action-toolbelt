@@ -42,7 +42,7 @@ runs:
       with:
         repository: ${{ inputs.git }}
         ref: ${{ inputs.branch }}
-        path: toolbelt
+        path: /home/runner/work/toolbelt
 
     - name: 'Set up Node.js'
       uses: actions/setup-node@v3
