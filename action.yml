@@ -72,7 +72,7 @@ runs:
         ${{ inputs.bin }} whoami || echo "First call to warm it up"
         VERSION=$(${{ inputs.bin }} version)
         echo ::notice title=VTEX Toolbelt version::$VERSION
-      working-directory: toolbelt
+      working-directory: /home/runner/work/toolbelt
       shell: bash
 
     - run: |
