@@ -47,7 +47,7 @@ runs:
     - name: Install VTEX Toolbelt
       # if: steps.cache-toolbelt.outputs.cache-hit != 'true'
       run: |
-        yarn global add vtex@${{ inputs.version }} --prefer-offline
+        yarn global add vtex@${{ inputs.version }}
         VERSION=$(vtex version)
         echo ::notice title=VTEX Toolbelt version::$VERSION
       shell: bash
