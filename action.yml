@@ -33,8 +33,8 @@ runs:
       with:
         node-version: 16
     - name: Get yarn cache path
-       id: cache-path
-       run: echo "::set-output name=dir::$(yarn cache dir)"
+      id: cache-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Cache VTEX Toolbelt
       id: cache-toolbelt
       uses: actions/cache@v3
@@ -44,7 +44,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-yarn   
     - name: Install VTEX Toolbelt
-#       if: steps.cache-toolbelt.outputs.cache-hit != 'true'
+#     if: steps.cache-toolbelt.outputs.cache-hit != 'true'
       run: |
         yarn global add vtex@${{ inputs.version }} --prefer-offline
         VERSION=$(vtex version)
