@@ -20,73 +20,45 @@ inputs:
     description: 'Workspace to start after login, default master'
     required: false
     default: master
-  bin:
-    description: 'Name to call this version of toolbelt'
+  version:
+    description: 'Version of VTEX Toolbelt to be installed'
     required: false
-    default: vtex-e2e
-  git:
-    description: 'Source repository to clone (org/repo)'
-    required: false
-    default: vtex/toolbelt
-  branch:
-    description: 'Which branch to use on git'
-    required: false
-    default: toolbelt-action
+    default: 3.0.0-beta-ci.0
 
 runs:
   using: 'composite'
   steps:
-
-    - name: Checkout VTEX Toolbelt
-      uses: actions/checkout@v3
-      with:
-        repository: ${{ inputs.git }}
-        ref: ${{ inputs.branch }}
-        path: /home/runner/work/toolbelt
-
     - name: 'Set up Node.js'
       uses: actions/setup-node@v3
       with:
         node-version: 16
-        cache: yarn
-        cache-dependency-path: toolbelt/yarn.lock
-      continue-on-error: true
-
+    - name: Get yarn cache path
+       id: cache-path
+       run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Cache VTEX Toolbelt
       id: cache-toolbelt
       uses: actions/cache@v3
       with:
-        path: |
-          toolbelt
-          /usr/local/bin/${{ inputs.bin }}
-        key: ${{ runner.os }}-${{ inputs.git }}-${{ inputs.branch }}-${{ inputs.bin }}
-
-
+        path: ${{ steps.cache-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ inputs.version }}
+        restore-keys: |
+          ${{ runner.os }}-yarn   
     - name: Install VTEX Toolbelt
-      if: steps.cache-toolbelt.outputs.cache-hit != 'true'
+#       if: steps.cache-toolbelt.outputs.cache-hit != 'true'
       run: |
-        yarn install --frozen-lockfile
-        yarn build
-        cp bin/run bin/${{ inputs.bin }}
-        ln -s $(pwd)/bin/${{ inputs.bin }} /usr/local/bin/
-        ${{ inputs.bin }} whoami || echo "First call to warm it up"
-        VERSION=$(${{ inputs.bin }} version)
+        yarn global add vtex@${{ inputs.version }} --prefer-offline
+        VERSION=$(vtex version)
         echo ::notice title=VTEX Toolbelt version::$VERSION
-      working-directory: /home/runner/work/toolbelt
       shell: bash
-
     - run: |
         bash $GITHUB_ACTION_PATH/entrypoint.sh
       shell: bash
       env:
-        VTEX_BIN: ${{ inputs.bin }}
         VTEX_ACCOUNT: ${{ inputs.account }}
         VTEX_APP_KEY: ${{ inputs.appKey }}
         VTEX_APP_TOKEN: ${{ inputs.appToken }}
         VTEX_AUTHENTICATE: ${{ inputs.authenticate }}
         VTEX_WORKSPACE: ${{ inputs.workspace }}
-        VTEX_TOOLBELT_GIT: ${{ inputs.git }}
-        VTEX_TOOLBELT_BRANCH: ${{ inputs.branch }}
 
 branding:
   icon: terminal
