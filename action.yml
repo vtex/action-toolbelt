@@ -32,11 +32,9 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: 16
-      shell: bash
     - name: Get yarn cache path
       id: cache-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
-      shell: bash
     - name: Cache VTEX Toolbelt
       id: cache-toolbelt
       uses: actions/cache@v3
@@ -45,7 +43,6 @@ runs:
         key: ${{ runner.os }}-yarn-${{ inputs.version }}
         restore-keys: |
           ${{ runner.os }}-yarn   
-      shell: bash
     - name: Install VTEX Toolbelt
       # if: steps.cache-toolbelt.outputs.cache-hit != 'true'
       run: |
