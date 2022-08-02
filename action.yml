@@ -35,6 +35,7 @@ runs:
     - name: Get yarn cache path
       id: cache-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
+      shell: bash
     - name: Cache VTEX Toolbelt
       id: cache-toolbelt
       uses: actions/cache@v3
