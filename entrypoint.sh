@@ -24,13 +24,11 @@ KEY="$VTEX_APP_KEY"
 TKN="$VTEX_APP_TOKEN"
 WRK=${VTEX_WORKSPACE:-master}
 BIN=${VTEX_BIN:-vtex}
-GIT=${VTEX_TOOLBELT_GIT:-vtex/toolbelt}
-BCH=${VTEX_TOOLBELT_BRANCH:-qe/cypress}
 AUT=${VTEX_AUTHENTICATE:-true}
 [[ -n $CHECK ]] && AUT='false'
 
 # Show toolbelt version used as GitHub notice
-VERSION="$($BIN --version) [from https://github.com/$GIT/tree/$BCH]"
+VERSION="$($BIN --version)"
 echo ::notice title=Toolbelt version used::$VERSION
 
 # If VTEX_AUTHENTICATE is true
