@@ -62,7 +62,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Deploy toolbelt and login
-        uses: vtex/action-toolbelt@v3
+        uses: vtex/action-toolbelt@v4
         with:
           account: YOUR_ACCOUNT
           appKey: ${{ secrets.VTEX_TOOLBELT_KEY }}
