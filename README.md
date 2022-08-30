@@ -32,7 +32,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Deploy toolbelt
-        uses: vtex/action-toolbelt@v3
+        uses: vtex/action-toolbelt@v4
 ```          
 
 ### More advanced, deploy from specific branch and do log in
