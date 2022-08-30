@@ -23,7 +23,7 @@ inputs:
   version:
     description: 'Version of VTEX Toolbelt to be installed'
     required: false
-    default: 3.0.0-beta-ci.0
+    default: 3.0.0-beta-ci.2
 
 runs:
   using: 'composite'
