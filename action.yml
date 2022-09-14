@@ -23,7 +23,7 @@ inputs:
   version:
     description: 'Version of VTEX Toolbelt to be installed'
     required: false
-    default: 3.0.0-beta-ci.2
+    default: 3.0.0-beta-ci.3
 
 runs:
   using: 'composite'
@@ -45,7 +45,6 @@ runs:
         restore-keys: |
           ${{ runner.os }}-yarn   
     - name: Install VTEX Toolbelt
-      # if: steps.cache-toolbelt.outputs.cache-hit != 'true'
       run: |
         yarn global add vtex@${{ inputs.version }}
         VERSION=$(vtex version)
@@ -54,10 +53,10 @@ runs:
     - run: |
         bash $GITHUB_ACTION_PATH/entrypoint.sh
       env:
+        VTEX_AUTHENTICATE: ${{ inputs.authenticate }}
         VTEX_ACCOUNT: ${{ inputs.account }}
         VTEX_APP_KEY: ${{ inputs.appKey }}
         VTEX_APP_TOKEN: ${{ inputs.appToken }}
-        VTEX_AUTHENTICATE: ${{ inputs.authenticate }}
         VTEX_WORKSPACE: ${{ inputs.workspace }}
       shell: bash
 
