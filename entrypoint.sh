@@ -12,19 +12,29 @@ error() {
   echo -e "$1!" && exit $2
 }
 
-# Variables
+# Try JSON file
+if [[ -f $SECRETS_JSON ]]; then
+  [[ -z $VTEX_APP_KEY ]] && VTEX_APP_KEY=$(jq .vtex.apiKey SECRETS_JSON)
+  [[ -z $VTEX_APP_TOKEN ]] && VTEX_APP_TOKEN=$(jq .vtex.apiToken SECRETS_JSON)
+fi
+
+# Test to see if we can login
 [[ -z $VTEX_ACCOUNT ]] && CHECK=failed
-[[ -z $VTEX_APP_KEY ]] && CHECK=failed
-[[ -z $VTEX_APP_TOKEN ]] && CHECK=failed
+[[ -z $VTEX_APP_KEY ]]  && CHECK=failed
+[[ -z $VTEX_APP_TOKEN ]]  && CHECK=failed
+
 PTH="$HOME/.vtex/session"
 SSN_JSON="session.json"
 WRK_JSON="workspace.json"
+
 ACC="$VTEX_ACCOUNT"
 KEY="$VTEX_APP_KEY"
 TKN="$VTEX_APP_TOKEN"
+
 WRK=${VTEX_WORKSPACE:-master}
 BIN=${VTEX_BIN:-vtex}
 AUT=${VTEX_AUTHENTICATE:-true}
+
 [[ -n $CHECK ]] && AUT='false'
 
 # Show toolbelt version used as GitHub notice

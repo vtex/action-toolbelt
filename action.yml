@@ -16,6 +16,9 @@ inputs:
   appToken:
     description: 'VTEX App Token to login'
     required: false
+  jsonFile:
+    description: 'File on the OS with json tokens'
+    required: false
   workspace:
     description: 'Workspace to start after login, default master'
     required: false
