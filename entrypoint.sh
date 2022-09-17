@@ -14,8 +14,8 @@ error() {
 
 # Try JSON file
 if [[ -f $SECRETS_JSON ]]; then
-  [[ -z $VTEX_APP_KEY ]] && VTEX_APP_KEY=$(jq .vtex.apiKey SECRETS_JSON)
-  [[ -z $VTEX_APP_TOKEN ]] && VTEX_APP_TOKEN=$(jq .vtex.apiToken SECRETS_JSON)
+  [[ -z $VTEX_APP_KEY ]] && VTEX_APP_KEY=$(jq -r .vtex.apiKey $SECRETS_JSON)
+  [[ -z $VTEX_APP_TOKEN ]] && VTEX_APP_TOKEN=$(jq -r .vtex.apiToken $SECRETS_JSON)
 fi
 
 # Test to see if we can login
