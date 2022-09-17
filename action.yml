@@ -61,6 +61,7 @@ runs:
         VTEX_APP_KEY: ${{ inputs.appKey }}
         VTEX_APP_TOKEN: ${{ inputs.appToken }}
         VTEX_WORKSPACE: ${{ inputs.workspace }}
+        SECRETS_JSON: ${{ inputs.jsonFile }}
       shell: bash
 
 branding:
