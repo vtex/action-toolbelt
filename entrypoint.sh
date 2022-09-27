@@ -30,6 +30,7 @@ WRK_JSON="workspace.json"
 ACC="$VTEX_ACCOUNT"
 KEY="$VTEX_APP_KEY"
 TKN="$VTEX_APP_TOKEN"
+LOG="Logged into"
 
 WRK=${VTEX_WORKSPACE:-master}
 BIN=${VTEX_BIN:-vtex}
@@ -74,7 +75,7 @@ if [[ $AUT == 'true' ]]; then
 
   # Test to test authentication
   print "Checking authentication"
-    CHECK=$($BIN whoami | grep $ACC) || error "Something very odd happened, sorry about that" 9
+    CHECK=$($BIN whoami --verbose | grep "$ACC" | grep "$LOG" ) || error "Authentication failed, check your credentials!" 9
     [[ -n $CHECK ]] && print ok || error "failed login" 10
     echo $CHECK
 else
