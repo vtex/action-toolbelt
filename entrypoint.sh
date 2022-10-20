@@ -39,8 +39,9 @@ AUT=${VTEX_AUTHENTICATE:-true}
 [[ -n $CHECK ]] && AUT='false'
 
 # Show toolbelt version used as GitHub notice
-VERSION="$($BIN --version)"
-echo ::notice title=Toolbelt version used::$VERSION
+echo "::group::VTEX Toolbelt version"
+$BIN --version
+echo "::endgroup::"
 
 # If VTEX_AUTHENTICATE is true
 if [[ $AUT == 'true' ]]; then
@@ -49,9 +50,12 @@ if [[ $AUT == 'true' ]]; then
   rm -rf $HOME/.vtex
 
   # Check if the toolbelt is installed and working
+  echo "::group::whoami"
   $BIN whoami &> /dev/null || error "$BIN not installed" 4
+  echo "::endgroup::"
 
   # Get token
+  echo "::group::Fetch VTEX token"
   print "Fetching VTEX token"
   CURL=$(curl --silent --location --fail \
     --request POST "https://vtexid.vtex.com.br/api/vtexid/apptoken/login?an=$ACC" \
@@ -59,25 +63,32 @@ if [[ $AUT == 'true' ]]; then
     --data-raw '{"appkey": "'$KEY'", "apptoken": "'$TKN'" }') || error "failed, check your key and token" 5
     CHECK=$(echo $CURL | grep -i success)
     [[ -n $CHECK ]] && print ok || error "failed to check curl response" 6
+  echo "::endgroup::"
 
   # Make session json
+  echo "::group::JSON - Create session"
   print "Creating $SSN_JSON"
     mkdir -p $PTH
     echo $(jq --arg acc $ACC --arg key $KEY '. + {account: $acc, login: $key}' <<< $CURL) > "$PTH/$SSN_JSON"
     CHECK=$(jq '. | length' < "$PTH/$SSN_JSON")
     [[ $CHECK -ge 5 ]] && print ok || error failed 7
+  echo "::endgroup::"
 
   # Make workspace json
+  echo "::group::JSON - Create workspace"
   print "Creating $WRK_JSON"
     echo $(jq --null-input --arg wrk $WRK '{currentWorkspace: $wrk, lastWorkspace: null}') > "$PTH/$WRK_JSON"
     CHECK=$(jq '. | length' < "$PTH/$WRK_JSON")
     [[ $CHECK -ge 2 ]] && print ok || error failed 8
+  echo "::endgroup::"
 
   # Test to test authentication
+  echo "::group::Test authentication"
   print "Checking authentication"
     CHECK=$($BIN whoami --verbose | grep "$ACC" | grep "$LOG" ) || error "Authentication failed, check your credentials!" 9
     [[ -n $CHECK ]] && print ok || error "failed login" 10
     echo $CHECK
+  echo "::endgroup::"
 else
     echo "===> Authentication process skipped."
 fi

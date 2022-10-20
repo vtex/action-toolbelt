@@ -4,57 +4,62 @@ author: VTEX
 
 inputs:
   authenticate:
-    description: 'Do authentication after deploy'
+    description: "Do authentication after deploy"
     required: false
-    default: 'true'
+    default: "true"
   account:
-    description: 'Account to use on login'
+    description: "Account to use on login"
     required: false
   appKey:
-    description: 'VTEX App Key to login'
+    description: "VTEX App Key to login"
     required: false
   appToken:
-    description: 'VTEX App Token to login'
+    description: "VTEX App Token to login"
     required: false
   jsonFile:
-    description: 'File on the OS with json tokens'
+    description: "File on the OS with json tokens"
     required: false
   workspace:
-    description: 'Workspace to start after login, default master'
+    description: "Workspace to start after login, default master"
     required: false
     default: master
   version:
-    description: 'Version of VTEX Toolbelt to be installed'
+    description: "Version of VTEX Toolbelt to be installed"
     required: false
     default: 3.0.0-beta-ci.3
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
-    - name: 'Set up Node.js'
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - name: Get yarn cache path
+    - name: "Set up Node.js"
+      uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
+
+    - name: "Get path from yarn cache"
       id: cache-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_ENV
       shell: bash
-    - name: Cache VTEX Toolbelt
+
+    - name: "Cache VTEX Toolbelt packages"
       id: cache-toolbelt
-      uses: actions/cache@v3
+      uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
       with:
         path: ${{ steps.cache-path.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ inputs.version }}
         restore-keys: |
           ${{ runner.os }}-yarn   
-    - name: Install VTEX Toolbelt
+
+    - name: "Install VTEX Toolbelt"
       run: |
+        echo "::group::Install packages"
         yarn global add vtex@${{ inputs.version }}
-        VERSION=$(vtex version)
-        echo ::notice title=VTEX Toolbelt version::$VERSION
+        echo "::endgroup::"
+        echo "::group::Check version"
+        vtex version
+        echo "::endgroup::"
       shell: bash
-    - run: |
-        bash $GITHUB_ACTION_PATH/entrypoint.sh
+
+    - name: "Authentication"
+      run: bash $GITHUB_ACTION_PATH/entrypoint.sh
       env:
         VTEX_AUTHENTICATE: ${{ inputs.authenticate }}
         VTEX_ACCOUNT: ${{ inputs.account }}
