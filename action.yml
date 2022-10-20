@@ -33,24 +33,15 @@ runs:
   steps:
     - name: "Set up Node.js"
       uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
-
-    - name: "Get path from yarn cache"
-      id: cache-path
-      run: echo "dir=$(yarn cache dir)" >> $GITHUB_ENV
-      shell: bash
-
-    - name: "Cache VTEX Toolbelt packages"
-      id: cache-toolbelt
-      uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
       with:
-        path: ${{ steps.cache-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ inputs.version }}
-        restore-keys: |
-          ${{ runner.os }}-yarn   
+        cache: yarn
 
     - name: "Install VTEX Toolbelt"
       run: |
-        echo "::group::Install packages"
+        echo "::group::Local installation"
+        yarn install --frozen-lockfile
+        echo "::endgroup::"
+        echo "::group::Global installation"
         yarn global add vtex@${{ inputs.version }}
         echo "::endgroup::"
         echo "::group::Check version"
