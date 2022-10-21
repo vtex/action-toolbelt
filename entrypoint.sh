@@ -47,7 +47,7 @@ echo "::endgroup::"
 if [[ $AUT == 'true' ]]; then
 
   # Clean previous login if any
-  rm -rf $HOME/.vtex
+  rm -rf $HOME/.vtex &> /dev/null || print "Delete '$HOME/.vtex' failed"
 
   # Check if the toolbelt is installed and working
   echo "::group::whoami"
