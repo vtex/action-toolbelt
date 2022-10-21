@@ -47,11 +47,16 @@ echo "::endgroup::"
 if [[ $AUT == 'true' ]]; then
 
   # Clean previous login if any
-  rm -rf $HOME/.vtex &> /dev/null || print "Delete '$HOME/.vtex' failed"
-
+  ERR=0; rm -rf $HOME/.vtex &> /dev/null || ERR=1
+  if [[ $ERR -eq 1 ]]; then
+    print "Delete '$HOME/.vtex' failed"
+    print "Trying to delete inside files"
+    rm -rf $HOME/.vtex/* &> /dev/null || print "Delete '$HOME/.vtex/*' failed"
+  fi
+  
   # Check if the toolbelt is installed and working
   echo "::group::whoami"
-  $BIN whoami &> /dev/null || error "$BIN not installed" 4
+  $BIN whoami || error "$BIN not installed" 4
   echo "::endgroup::"
 
   # Get token
