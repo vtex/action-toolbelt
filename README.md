@@ -32,7 +32,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Deploy toolbelt
-        uses: vtex/action-toolbelt@v4
+        uses: vtex/action-toolbelt@v8
 ```          
 
 ### More advanced, deploy from specific branch and do log in
@@ -62,25 +62,24 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Deploy toolbelt and login
-        uses: vtex/action-toolbelt@v4
+        uses: vtex/action-toolbelt@v8
         with:
           account: YOUR_ACCOUNT
           appKey: ${{ secrets.VTEX_TOOLBELT_KEY }}
           appToken: ${{ secrets.VTEX_TOOLBELT_TOKEN }}
-          authenticate: true      # defaults to true, but it'll be false if
-                                  # any of account, appKey or appToken is missing
-          workspace: master       # defaults to master if omitted
-          bin: vtex-e2e           # defaults to vtex-e2e if omitted 
-          git: vtex/toolbelt      # defaults to vtex/toolbelt if omitted
-          branch: qe/cypress      # defaults to qe/cypress if omitted
+          authenticate: true        # defaults to true, but it'll be false if
+                                    # any of account, appKey or appToken is missing
+          workspace: master         # defaults to master
+          bin: vtex                 # defaults to vtex
+          version: 3.0.0-beta-ci.3  # defaults to 3.0.0-beta-ci.3
 
       - name: Do something after the login
-        run: vtex-e2e workspace ls
         # The call name bellow must be the same given as *with: bin*
+        run: vtex workspace ls
 
-      - name: Logout'
-        run: vtex-e2e logout
-        # Not needed, the .vtex folder isn't saved on cache
+      - name: Logout
+        # The call name bellow must be the same given as *with: bin*
+        run: vtex logout
 ```
 
 ## Output
