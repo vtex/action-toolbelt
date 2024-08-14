@@ -36,9 +36,10 @@ runs:
       shell: bash
 
     - name: "Set up Node.js"
-      uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
+      uses: actions/setup-node@v4
       with:
         cache: yarn
+        node-version: 20
 
     - name: "Install VTEX Toolbelt"
       run: |
