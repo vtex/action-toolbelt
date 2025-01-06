@@ -71,7 +71,7 @@ jobs:
                                     # any of account, appKey or appToken is missing
           workspace: master         # defaults to master
           bin: vtex                 # defaults to vtex
-          version: 3.0.0-beta-ci.3  # defaults to 3.0.0-beta-ci.3
+          version: 4.1.0            # defaults to 4.1.0
 
       - name: Do something after the login
         # The call name bellow must be the same given as *with: bin*
