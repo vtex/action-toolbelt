@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: action-toolbelt
+  description: Deploying, caching for faster deploys, and performing login
+    operations on the VTEX Toolbelt tool
+  tags:
+    - shell
+  annotations:
+    vtex.com/janus-acronym: ""
+    vtex.com/o11y-os-index: ""
+    grafana/dashboard-selector: ""
+    github.com/project-slug: vtex/action-toolbelt
+    backstage.io/techdocs-ref: dir:../
+spec:
+  lifecycle: stable
+  owner: apps
+  type: gh-action
+  dependsOn:
+    - component:toolbelt
