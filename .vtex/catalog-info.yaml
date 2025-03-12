@@ -2,8 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: action-toolbelt
-  description: Deploying, caching for faster deploys, and performing login
-    operations on the VTEX Toolbelt tool
+  description: Deploying, caching for faster deploys, and performing login operations on the VTEX Toolbelt tool
   tags:
     - shell
   annotations:
@@ -14,7 +13,7 @@ metadata:
     backstage.io/techdocs-ref: dir:../
 spec:
   lifecycle: stable
-  owner: apps
+  owner: te-0029
   type: gh-action
   dependsOn:
     - component:toolbelt
