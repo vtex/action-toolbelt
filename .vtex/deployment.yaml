@@ -8,7 +8,8 @@
           sonarProjectName: action-toolbelt
           nodeVersion: 20-bookworm
           nodeCommands:
-            - test -- --coverage
+            - run shellcheck entrypoint.sh
+            - run bash -n entrypoint.sh
         runtime:
           architecture: amd64
         when:
