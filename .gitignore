@@ -3,3 +3,4 @@
 /.idea
 .VTEX_QE.json
 node_modules
+.claude/settings.local.json
