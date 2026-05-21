@@ -1,5 +1,5 @@
 - name: action-toolbelt
-  referenceId: PLACEHOLDER
+  referenceId: 73SEVYK2
   build:
     provider: dkcicd
     pipelines:
